@@ -4,6 +4,7 @@ from pandas_datareader import data as wb
 import numpy as np 
 from scipy import stats 
 import statsmodels.api as sm 
+import matplotlib.pyplot as plt
 
 #definimos os tickers das ações que utilizaremos: 
 tickers = ['ITUB4.SA','SANB4.SA','BBDC4.SA','BBAS3.SA']
