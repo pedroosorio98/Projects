@@ -1,0 +1,43 @@
+Vamos fazer uma regressão com USD-BRL: 
+import pandas as pd 
+from pandas_datareader import data as wb 
+import numpy as np 
+from scipy import stats 
+import statsmodels.api as sm 
+
+#definimos o ticker do USD-BRL:
+tickers = ['USDBRL=X']
+base_moeda=pd.DataFrame()
+
+#Vamos pegar os preços no yahoo finance e passar tudo para um data frame:
+for i in tickers: 
+    base_moeda[i]=wb.DataReader(i,data_source='yahoo',start='2000-01-01')['Adj Close']
+
+#Adicionando no data frame os retornos e os retornos do dia anterior: 
+base_moeda['Retorno']=base_moeda/base_moeda.shift(1)-1
+base_moeda['Retorno Dia Anterior']=base_moeda['Retorno'].shift(1)
+base_moeda = base_moeda.iloc[2:]
+
+#Fazemos uma regressão querendo explicar o retorno do USD-BRL pelo retorno do dia anterior: 
+X = base_moeda['Retorno Dia Anterior']
+Y = base_moeda['Retorno']
+X1 = sm.add_constant(X)
+reg = sm.OLS(Y,X1).fit()
+print(reg.summary())     #p-valor muito pequeno!
+
+#Plotamos tudo: 
+plt.scatter(base_moeda['Retorno Dia Anterior'],base_moeda['Retorno'])
+plt.plot(X,stats.linregress(X,Y).slope*X+stats.linregress(X,Y).intercept,color='Red')
+plt.xlabel('Retorno Dia Anterior')
+plt.ylabel('Retorno')
+plt.title('Retorno USD-BRL x Retorno USD-BRL do dia Anterior')
+plt.show()
+
+#Plotamos tudo com um pouco mais de zoom: 
+plt.scatter(base_moeda['Retorno Dia Anterior'],base_moeda['Retorno'])
+plt.plot(X,stats.linregress(X,Y).slope*X+stats.linregress(X,Y).intercept,color='Red')
+plt.xlabel('Retorno Dia Anterior')
+plt.ylabel('Retorno')
+plt.title('Retorno USD-BRL x Retorno USD-BRL do dia Anterior')
+plt.axis([-0.1,0.1,-0.1,0.1])
+plt.show()
