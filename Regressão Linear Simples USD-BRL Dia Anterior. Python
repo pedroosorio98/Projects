@@ -4,6 +4,7 @@ from pandas_datareader import data as wb
 import numpy as np 
 from scipy import stats 
 import statsmodels.api as sm 
+import matplotlib.pyplot as plt
 
 #definimos o ticker do USD-BRL:
 tickers = ['USDBRL=X']
