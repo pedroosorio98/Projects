@@ -1,5 +1,6 @@
 #Vamos fazer um histograma dos retornos diários do S&P500:
 from pandas_datareader import data as wb 
+import pandas as pd
 import matplotlib.pyplot as plt 
 
 dados_sp = pd.DataFrame()
