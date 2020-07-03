@@ -1,8 +1,11 @@
-'Simula algumas estratégias simples para 351 ações do ibovespa com dados do Yahoo Finance. 
+'Simula algumas estratégias simples para ações do ibovespa com dados do Yahoo Finance. 
 
-import pandas as pd
-import matplotlib.pyplot as plt
-import yfinance as yf
+import pandas as pd 
+import matplotlib.pyplot as plt 
+import yfinance as yf 
+
+tickers = ['ITUB4.SA','B3SA3.SA','PETR4.SA','BRFS3.SA','MRFG3.SA','PSSA3.SA','LAME4.SA','WIZS3.SA',\
+          'BBAS3.SA','ELET3.SA']
 
 def normalizar(base,valor):
     norm = list(range(len(base)+1))
@@ -96,16 +99,12 @@ def reglin(y):
    
     return a,b 
 
-
-tickers = pd.read_csv('tickersacoesbr.csv',sep=";")
-
-
 for i in range(len(tickers)):
-            base_preco = yf.download(tickers.Codigo[i],start="2016-01-01",end="2020-01-01").Close
+            base_preco = yf.download(tickers[i],start="2017-01-01",end="2020-01-01")['Adj Close']
             plt.figure(figsize=(10,8))
             plt.plot(normalizar(estrategiavol(base_preco,4,0.35),1000),label='Volatilidade')
             plt.plot(normalizar(estrategiaretornonegativo(base_preco),1000),label='Retorno negativo')
             plt.plot(normalizar(estrategiaretornopositivo(base_preco),1000),label='Retorno positivo')
             plt.plot(normalizar(retornosdaserie(base_preco),1000),label='Ação')
-            plt.title(tickers.Codigo[i])
+            plt.title(tickers[i])
             plt.legend()
