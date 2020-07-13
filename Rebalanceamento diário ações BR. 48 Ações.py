@@ -13,7 +13,6 @@ for stock in stock_tickers:
     stock_prices[stock]=wb.DataReader(stock,data_source='yahoo',start='2010-01-01')['Adj Close']
     
 stock_returns = stock_prices.pct_change()
-stock_returns['Rebalanceamento diário']=stock_returns[stock_tickers].mean(axis=1)
 stock_returns['Rebalanceamento diário'] = stock_returns[stock_tickers].mean(axis=1).add(1).cumprod()*100
 stock_returns['Sem rebalanceamento'] = (stock_returns[stock_tickers].add(1).cumprod()*100).mean(axis=1)
 
