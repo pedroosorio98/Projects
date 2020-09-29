@@ -1,3 +1,4 @@
-## Projetos:
-##### Aqui publico uma série de jupyter notebooks feitos em python e R e que tratam de temas ligados a mercados financeiros/economia. A maior parte dos notebooks são feitos com dados de API's que podem ser acessadas pelo Python de forma gratuita, como o Quandl e o Yahoo Finance
+## Projects:
+##### Here I publish various notebooks about general topics in finance and economics. All notebooks are written in Python and R and deal with data that can be access for free throught API's such as Quandl and Yahoo Finance
+
 
